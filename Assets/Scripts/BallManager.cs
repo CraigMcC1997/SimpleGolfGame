@@ -29,10 +29,26 @@ public class BallManager : MonoBehaviour
         renderer = GetComponent<Renderer>();
     }
 
+    void KeepBallOnScreen()
+    {
+        Vector2 playerPosScreen = Camera.main.WorldToScreenPoint(transform.position);
+
+        if (playerPosScreen.x > Screen.width || playerPosScreen.x < 0.0f)
+        {
+            rb.transform.position = originalPos;
+            rb.velocity = originalVelocity;
+        }
+    }
+
     //temp to allow invoke to wait x seconds before calling game over
     void loadGameOver()
     {
         SceneManager.LoadScene("Game Over");
+    }
+
+    void UpdateShotsCounter()
+    {
+        shotsText.text = "Shots Left: " + dragScript.shots_left.ToString();
     }
 
     void Update()
@@ -42,21 +58,18 @@ public class BallManager : MonoBehaviour
         {
             allowControl = false;
 
+            //start count down before displaying game over screen
             Invoke("loadGameOver", 5);
         }
 
         //for score count
-        shotsText.text = "Shots Left: " + dragScript.shots_left.ToString();
+        UpdateShotsCounter();
 
         // keep ball on screen
-        //if (!renderer.isVisible)
-        //{
-        //    rb.transform.position = originalPos;
-        //    rb.velocity = originalVelocity;
-        //}
+        KeepBallOnScreen();
     }
 
-    void resetPosition(Collision2D other)
+    void LoadNextLevel(Collision2D other)
     {
         if (other.gameObject.tag == "End Flag")
         {
@@ -67,6 +80,6 @@ public class BallManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        resetPosition(other);
+        LoadNextLevel(other);
     }
 }
