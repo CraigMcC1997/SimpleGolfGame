@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class BallManager : MonoBehaviour
 {
@@ -15,10 +18,7 @@ public class BallManager : MonoBehaviour
     DragAndShoot dragScript;
     Renderer renderer;
 
-    bool quit = false;
-    float counter = 0;
-    bool switchCounters = false;
-    const int MAX_TIMER = 500; //TODO: make this more robust, random number is not good
+    public TextMeshProUGUI shotsText;
 
     void Start()
     {
@@ -29,22 +29,10 @@ public class BallManager : MonoBehaviour
         renderer = GetComponent<Renderer>();
     }
 
-    IEnumerator waiter(float waitTime)
+    //temp to allow invoke to wait x seconds before calling game over
+    void loadGameOver()
     {
-        while (counter < waitTime)
-        {
-            //Increment Timer until counter >= waitTime
-            counter += Time.deltaTime;
-            Debug.Log("We have waited for: " + counter + " seconds");
-            //Wait for a frame so that Unity doesn't freeze
-            //Check if we want to quit this function
-            if (quit)
-            {
-                //Quit function
-                yield break;
-            }
-            yield return null;
-        }
+        SceneManager.LoadScene("Game Over");
     }
 
     void Update()
@@ -54,23 +42,18 @@ public class BallManager : MonoBehaviour
         {
             allowControl = false;
 
-            StartCoroutine(waiter(MAX_TIMER));
-
-            if (counter >= MAX_TIMER)
-            {
-                if (dragScript.hasStopped == true)
-                {
-                    SceneManager.LoadScene("Game Over");
-                }
-            }
+            Invoke("loadGameOver", 5);
         }
+
+        //for score count
+        shotsText.text = "Shots Left: " + dragScript.turns_taken.ToString();
 
         // keep ball on screen
-        if (!renderer.isVisible)
-        {
-            rb.transform.position = originalPos;
-            rb.velocity = originalVelocity;
-        }
+        //if (!renderer.isVisible)
+        //{
+        //    rb.transform.position = originalPos;
+        //    rb.velocity = originalVelocity;
+        //}
     }
 
     void resetPosition(Collision2D other)
