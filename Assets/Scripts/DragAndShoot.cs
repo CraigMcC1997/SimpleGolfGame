@@ -72,9 +72,11 @@ public class DragAndShoot : MonoBehaviour
                 endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
                 endPoint.z = 15;
 
+                //calculate force vector
                 force = new Vector2(Mathf.Clamp(startPoint.x - endPoint.x, minPower.x, maxPower.x),
                     Mathf.Clamp(startPoint.y - endPoint.y, minPower.y, maxPower.y));
 
+                //apply force to ball
                 rb.AddForce(force * power, ForceMode2D.Impulse);
 
                 //stop drawing the line
