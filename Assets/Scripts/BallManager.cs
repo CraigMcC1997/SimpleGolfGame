@@ -38,7 +38,7 @@ public class BallManager : MonoBehaviour
     void Update()
     {
         // stop players controll and show death screen
-        if (dragScript.turns_taken == MAX_TURNS)
+        if (dragScript.shots_left == 0)
         {
             allowControl = false;
 
@@ -46,7 +46,7 @@ public class BallManager : MonoBehaviour
         }
 
         //for score count
-        shotsText.text = "Shots Left: " + dragScript.turns_taken.ToString();
+        shotsText.text = "Shots Left: " + dragScript.shots_left.ToString();
 
         // keep ball on screen
         //if (!renderer.isVisible)

@@ -21,7 +21,7 @@ public class DragAndShoot : MonoBehaviour
 
     public bool isStill = true;
     public bool hasStopped = false;
-    public int turns_taken = 0;
+    public int shots_left = 2;
 
     private void Start()
     {
@@ -80,10 +80,10 @@ public class DragAndShoot : MonoBehaviour
                 //stop drawing the line
                 lt.EndLine();
 
-                turns_taken++;
+                shots_left--;
             }
 
-            Debug.Log(turns_taken);
+            Debug.Log(shots_left);
         }
     }
 }
