@@ -73,8 +73,22 @@ public class BallManager : MonoBehaviour
     {
         if (other.gameObject.tag == "End Flag")
         {
-            //load next scene assuming build order is correct
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            int nextLevel_i = SceneManager.GetActiveScene().buildIndex + 1;
+            SceneManager.LoadScene(nextLevel_i);
+
+            //string nextLevel = nextLevel_i.ToString();
+            //int nextLevelExists = SceneUtility.GetBuildIndexByScenePath(nextLevel);
+
+            //if (nextLevelExists > -1)
+            //{
+            //    //load next scene assuming build order is correct
+            //    SceneManager.LoadScene(nextLevel_i);
+            //}
+            //else
+            //{
+            //    //reached end, load Main Menu
+            //    SceneManager.LoadScene("Main Menu");
+            //}
         }
     }
 
