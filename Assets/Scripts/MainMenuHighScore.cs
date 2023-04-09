@@ -13,6 +13,8 @@ public class MainMenuHighScore : MonoBehaviour
         //PlayerPrefs.SetInt("highScore", 0);
 
         //for round count
-        highScore_text.text = "High Score: " + PlayerPrefs.GetInt("highScore");
+        int highscore = PlayerPrefs.GetInt("highScore");
+        if (highscore > 0)
+            highScore_text.text = "High Score: " + highscore;
     }
 }
