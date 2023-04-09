@@ -85,7 +85,7 @@ public class DragAndShoot : MonoBehaviour
                 shots_left--;
             }
 
-            Debug.Log(shots_left);
+            // Debug.Log(shots_left);
         }
     }
 }

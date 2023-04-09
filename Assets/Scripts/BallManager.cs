@@ -51,6 +51,25 @@ public class BallManager : MonoBehaviour
         shotsText.text = "Shots Left: " + dragScript.shots_left.ToString();
     }
 
+    void updateHighScore(int level)
+    {
+        if (PlayerPrefs.HasKey("highScore"))
+        {
+            if (level > PlayerPrefs.GetInt("highScore"))
+            {
+                PlayerPrefs.SetInt("highScore", level);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("highScore", level);
+            PlayerPrefs.Save();
+        }
+
+        Debug.Log(level);
+    }
+
     void Update()
     {
         // stop players controll and show death screen
@@ -74,6 +93,11 @@ public class BallManager : MonoBehaviour
         if (other.gameObject.tag == "End Flag")
         {
             int nextLevel_i = SceneManager.GetActiveScene().buildIndex + 1;
+
+            //save the current level as highest reached
+            updateHighScore(nextLevel_i - 4);
+
+            //load the next level
             SceneManager.LoadScene(nextLevel_i);
 
             //string nextLevel = nextLevel_i.ToString();
