@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class RoundCounter : MonoBehaviour
 {
     public TextMeshProUGUI shotsText;
+
     void Start()
     {
         //for round count
