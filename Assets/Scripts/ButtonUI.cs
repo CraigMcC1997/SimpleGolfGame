@@ -31,7 +31,6 @@ public class ButtonUI : MonoBehaviour
         Application.Quit();
     }
 
-    //controls page
     public void ReturnToMenu()
     {
         SceneManager.LoadScene(MainMenuScene);
