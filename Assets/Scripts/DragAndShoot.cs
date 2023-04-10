@@ -5,45 +5,45 @@ using UnityEngine;
 public class DragAndShoot : MonoBehaviour
 {
     public float power = 10f;
-    public Rigidbody2D rb;
 
     public Vector2 minPower;
     public Vector2 maxPower;
 
-    LineTragetory lt;
-    BallManager ballManager;
-
     Camera cam;
+    LineTragetory LineTrag;
+    BallManager ballManager;
+    Rigidbody2D Ball_rb;
 
     Vector2 force;
     Vector3 startPoint;
     Vector3 endPoint;
 
-    public bool isStill = true;
+    public bool slowedDown = true;
     public bool hasStopped = false;
     public int shots_left = 2;
 
     private void Start()
     {
         cam = Camera.main;
-        lt = GetComponent<LineTragetory>();
+        LineTrag = GetComponent<LineTragetory>();
         ballManager = GetComponent<BallManager>();
+        Ball_rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
         if (ballManager.allowControl == true)
         {
-            if (rb.velocity.x <= 1 && rb.velocity.y <= 1 && rb.velocity.y >= 0)
+            if (Ball_rb.velocity.x <= 1 && Ball_rb.velocity.y <= 1 && Ball_rb.velocity.y >= 0)
             {
-                isStill = true;
+                slowedDown = true;
             }
             else
             {
-                isStill = false;
+                slowedDown = false;
             }
 
-            if (rb.velocity == new Vector2(0, 0))
+            if (Ball_rb.velocity == new Vector2(0, 0))
             {
                 hasStopped = true;
             }
@@ -53,21 +53,21 @@ public class DragAndShoot : MonoBehaviour
             }
 
             //starting point for mouse
-            if (Input.GetMouseButtonDown(0) && isStill == true)
+            if (Input.GetMouseButtonDown(0) && slowedDown == true)
             {
                 startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
                 startPoint.z = 15;
             }
 
-            if (Input.GetMouseButton(0) && isStill == true)
+            if (Input.GetMouseButton(0) && slowedDown == true)
             {
                 Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
                 currentPoint.z = 15;
-                lt.RenderLine(startPoint, currentPoint);
+                LineTrag.RenderLine(startPoint, currentPoint);
             }
 
             //ending point of mouse
-            if (Input.GetMouseButtonUp(0) && isStill == true)
+            if (Input.GetMouseButtonUp(0) && slowedDown == true)
             {
                 endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
                 endPoint.z = 15;
@@ -77,15 +77,13 @@ public class DragAndShoot : MonoBehaviour
                     Mathf.Clamp(startPoint.y - endPoint.y, minPower.y, maxPower.y));
 
                 //apply force to ball
-                rb.AddForce(force * power, ForceMode2D.Impulse);
+                Ball_rb.AddForce(force * power, ForceMode2D.Impulse);
 
                 //stop drawing the line
-                lt.EndLine();
+                LineTrag.EndLine();
 
                 shots_left--;
             }
-
-            // Debug.Log(shots_left);
         }
     }
 }

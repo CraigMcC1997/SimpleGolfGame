@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LineTragetory : MonoBehaviour
 {
-    public LineRenderer lr;
+    LineRenderer lr;
 
     private void Awake()
     {

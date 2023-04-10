@@ -14,17 +14,17 @@ public class BallManager : MonoBehaviour
     const int MAX_TURNS = 2;
     public bool allowControl = true;
 
-    Rigidbody2D rb;
+    Rigidbody2D Ball_rb;
     Renderer renderer;
-    public DragAndShoot dragScript;
+    public DragAndShoot dragScript; // public to allow UI to get required info
 
     void Start()
     {
         dragScript = GetComponent<DragAndShoot>();
-        rb = GetComponent<Rigidbody2D>();
+        Ball_rb = GetComponent<Rigidbody2D>();
 
         originalPos = gameObject.transform.position;
-        originalVelocity = rb.velocity;
+        originalVelocity = Ball_rb.velocity;
         renderer = GetComponent<Renderer>();
     }
 
@@ -34,8 +34,8 @@ public class BallManager : MonoBehaviour
 
         if (playerPosScreen.x > Screen.width || playerPosScreen.x < 0.0f)
         {
-            rb.transform.position = originalPos;
-            rb.velocity = originalVelocity;
+            Ball_rb.transform.position = originalPos;
+            Ball_rb.velocity = originalVelocity;
         }
     }
 
