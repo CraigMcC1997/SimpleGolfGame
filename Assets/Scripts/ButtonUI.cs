@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ButtonUI : MonoBehaviour
 {
-    [SerializeField] private string newGameLevel = "Level/1";
-    [SerializeField] private string ControlsScene = "Controls";
-    [SerializeField] private string SettingsScene = "Settings";
-    [SerializeField] private string MainMenuScene = "Main Menu";
+    public string newGameLevel = "Level/1";
+    public string ControlsScene = "Controls";
+    public string SettingsScene = "Settings";
+    public string MainMenuScene = "Main Menu";
 
     //main menu
     public void StartGameButton()

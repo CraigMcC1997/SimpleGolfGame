@@ -22,10 +22,10 @@ public class BallManager : MonoBehaviour
     {
         dragScript = GetComponent<DragAndShoot>();
         Ball_rb = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<Renderer>();
 
         originalPos = gameObject.transform.position;
         originalVelocity = Ball_rb.velocity;
-        renderer = GetComponent<Renderer>();
     }
 
     void KeepBallOnScreen()
