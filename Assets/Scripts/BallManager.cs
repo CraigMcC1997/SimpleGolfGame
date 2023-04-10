@@ -14,15 +14,14 @@ public class BallManager : MonoBehaviour
     const int MAX_TURNS = 2;
     public bool allowControl = true;
 
-    public Rigidbody2D rb;
-    DragAndShoot dragScript;
+    Rigidbody2D rb;
     Renderer renderer;
-
-    public TextMeshProUGUI shotsText;
+    public DragAndShoot dragScript;
 
     void Start()
     {
         dragScript = GetComponent<DragAndShoot>();
+        rb = GetComponent<Rigidbody2D>();
 
         originalPos = gameObject.transform.position;
         originalVelocity = rb.velocity;
@@ -43,12 +42,13 @@ public class BallManager : MonoBehaviour
     //temp to allow invoke to wait x seconds before calling game over
     void loadGameOver()
     {
-        SceneManager.LoadScene("Game Over");
-    }
+        Scene scene = SceneManager.GetActiveScene();
 
-    void UpdateShotsCounter()
-    {
-        shotsText.text = "Shots Left: " + dragScript.shots_left.ToString();
+        // if level 1 just loop back
+        if (scene.name == "1")
+            SceneManager.LoadScene(scene.name);
+        else
+            SceneManager.LoadScene("Game Over");
     }
 
     void updateHighScore(int level)
@@ -80,9 +80,6 @@ public class BallManager : MonoBehaviour
             //start count down before displaying game over screen
             Invoke("loadGameOver", 5);
         }
-
-        //for score count
-        UpdateShotsCounter();
 
         // keep ball on screen
         KeepBallOnScreen();
