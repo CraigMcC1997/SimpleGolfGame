@@ -22,6 +22,9 @@ public class DragAndShoot : MonoBehaviour
     public bool hasStopped = false;
     public int shots_left = 2;
 
+    // Start is a Unity callback function that is called when the script component is enabled and starts running.
+    // It initializes various variables used by the script, including the main camera, LineTragetory component,
+    // BallManager component, and Rigidbody2D component of the game object this script is attached to.
     private void Start()
     {
         cam = Camera.main;
@@ -30,6 +33,10 @@ public class DragAndShoot : MonoBehaviour
         Ball_rb = GetComponent<Rigidbody2D>();
     }
 
+    // Update is a Unity callback function that is called every frame.
+    // It handles the logic for controlling the ball's trajectory and applying force to the ball
+    // when the mouse button is released, based on the user's input and the state of the ball.
+    // It also updates variables related to the ball's velocity and drawing of the line.
     private void Update()
     {
         if (ballManager.allowControl == true)
