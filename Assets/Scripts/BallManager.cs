@@ -81,6 +81,15 @@ public class BallManager : MonoBehaviour
             Invoke("loadGameOver", 5);
         }
 
+        if (Time.timeScale == 0)
+        {
+            allowControl = false;
+        }
+        else
+        {
+            allowControl = true;
+        }
+
         // keep ball on screen
         KeepBallOnScreen();
     }
