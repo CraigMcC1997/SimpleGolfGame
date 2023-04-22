@@ -39,7 +39,7 @@ public class DragAndShoot : MonoBehaviour
     // It also updates variables related to the ball's velocity and drawing of the line.
     private void Update()
     {
-        if (ballManager.allowControl == true)
+        if (ballManager.allowControl == true && ballManager.onUIElement == false)
         {
             if (Ball_rb.velocity.x <= 1 && Ball_rb.velocity.y <= 1 && Ball_rb.velocity.y >= 0)
             {

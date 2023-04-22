@@ -13,18 +13,17 @@ public class BallManager : MonoBehaviour
 
     const int MAX_TURNS = 2;
     public bool allowControl = true;
+    public bool onUIElement = false;
 
     Rigidbody2D Ball_rb;
-    Renderer renderer;
     public DragAndShoot dragScript; // public to allow UI to get required info
 
     // Start is a Unity callback function that is called when the script is first enabled or the object is instantiated.
-    // It initializes the dragScript, Ball_rb, renderer, originalPos, and originalVelocity variables with respective component references and values.
+    // It initializes the dragScript, Ball_rb, originalPos, and originalVelocity variables with respective component references and values.
     void Start()
     {
         dragScript = GetComponent<DragAndShoot>();
         Ball_rb = GetComponent<Rigidbody2D>();
-        renderer = GetComponent<Renderer>();
 
         originalPos = gameObject.transform.position;
         originalVelocity = Ball_rb.velocity;
@@ -123,28 +122,28 @@ public class BallManager : MonoBehaviour
     // and load it accordingly.
     void LoadNextLevel()
     {
-        
-            int nextLevel_i = SceneManager.GetActiveScene().buildIndex + 1;
 
-            //save the current level as highest reached
-            updateHighScore(nextLevel_i - 4);
+        int nextLevel_i = SceneManager.GetActiveScene().buildIndex + 1;
 
-            //load the next level
-            SceneManager.LoadScene(nextLevel_i);
+        //save the current level as highest reached
+        updateHighScore(nextLevel_i - 4);
 
-            //string nextLevel = nextLevel_i.ToString();
-            //int nextLevelExists = SceneUtility.GetBuildIndexByScenePath(nextLevel);
+        //load the next level
+        SceneManager.LoadScene(nextLevel_i);
 
-            //if (nextLevelExists > -1)
-            //{
-            //    //load next scene assuming build order is correct
-            //    SceneManager.LoadScene(nextLevel_i);
-            //}
-            //else
-            //{
-            //    //reached end, load Main Menu
-            //    SceneManager.LoadScene("Main Menu");
-            //}
+        //string nextLevel = nextLevel_i.ToString();
+        //int nextLevelExists = SceneUtility.GetBuildIndexByScenePath(nextLevel);
+
+        //if (nextLevelExists > -1)
+        //{
+        //    //load next scene assuming build order is correct
+        //    SceneManager.LoadScene(nextLevel_i);
+        //}
+        //else
+        //{
+        //    //reached end, load Main Menu
+        //    SceneManager.LoadScene("Main Menu");
+        //}
 
     }
 
