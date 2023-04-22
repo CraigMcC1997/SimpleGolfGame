@@ -338,6 +338,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4203178776460776700, guid: 503a91e5d7eb7cc4f9665244d34ac312, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1138032089}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 503a91e5d7eb7cc4f9665244d34ac312, type: 3}
 --- !u!1001 &479837288
@@ -742,12 +746,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1994384732182778602, guid: d82a48bdb89c6724d89187c7f6ed8a8b, type: 3}
   m_PrefabInstance: {fileID: 1138032087}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1138032089}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1696e41a167e71e4291d9a5421f7fafc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1138032089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1994384732182778514, guid: d82a48bdb89c6724d89187c7f6ed8a8b, type: 3}
+  m_PrefabInstance: {fileID: 1138032087}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1315862711
 PrefabInstance:
   m_ObjectHideFlags: 0
