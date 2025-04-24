@@ -26,7 +26,7 @@ public class BallManager : MonoBehaviour
         Ball_rb = GetComponent<Rigidbody2D>();
 
         originalPos = gameObject.transform.position;
-        originalVelocity = Ball_rb.velocity;
+        originalVelocity = Ball_rb.linearVelocity;
     }
 
     // KeepBallOnScreen is a custom function that ensures the ball remains within the visible screen area.
@@ -40,7 +40,7 @@ public class BallManager : MonoBehaviour
         if (playerPosScreen.x > Screen.width || playerPosScreen.x < 0.0f)
         {
             Ball_rb.transform.position = originalPos;
-            Ball_rb.velocity = originalVelocity;
+            Ball_rb.linearVelocity = originalVelocity;
         }
     }
 

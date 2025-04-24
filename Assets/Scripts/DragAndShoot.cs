@@ -41,7 +41,7 @@ public class DragAndShoot : MonoBehaviour
     {
         if (ballManager.allowControl == true && ballManager.onUIElement == false)
         {
-            if (Ball_rb.velocity.x <= 1 && Ball_rb.velocity.y <= 1 && Ball_rb.velocity.y >= 0)
+            if (Ball_rb.linearVelocity.x <= 1 && Ball_rb.linearVelocity.y <= 1 && Ball_rb.linearVelocity.y >= 0)
             {
                 slowedDown = true;
             }
@@ -50,7 +50,7 @@ public class DragAndShoot : MonoBehaviour
                 slowedDown = false;
             }
 
-            if (Ball_rb.velocity == new Vector2(0, 0))
+            if (Ball_rb.linearVelocity == new Vector2(0, 0))
             {
                 hasStopped = true;
             }
