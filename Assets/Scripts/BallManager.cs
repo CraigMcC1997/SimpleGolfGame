@@ -17,11 +17,10 @@ public class BallManager : MonoBehaviour
     public static bool onUIElement = false;
 
     Rigidbody2D Ball_rb;
-    public DragAndShoot dragScript; // public to allow UI to get required info
 
     void Start()
     {
-        dragScript = GetComponent<DragAndShoot>();
+        DragAndShoot.shots_left = MAX_TURNS; // Initialize shots left
         Ball_rb = GetComponent<Rigidbody2D>();
 
         startingPos = gameObject.transform.position;
@@ -67,7 +66,7 @@ public class BallManager : MonoBehaviour
     void Update()
     {
         // stop players control and show death screen
-        if (dragScript.shots_left == 0)
+        if (DragAndShoot.shots_left == 0)
         {
             allowControl = false;
 
@@ -97,29 +96,24 @@ public class BallManager : MonoBehaviour
         updateHighScore(nextLevel_i - NUM_MENUS);
 
         //load the next level
-        //SceneManager.LoadScene(nextLevel_i);
+        SceneManager.LoadScene(nextLevel_i);
 
-        string nextLevel = nextLevel_i.ToString();
-        int nextLevelExists = SceneUtility.GetBuildIndexByScenePath(nextLevel);
+        // string nextLevel = nextLevel_i.ToString();
+        // int nextLevelExists = SceneUtility.GetBuildIndexByScenePath(nextLevel);
 
-        if (nextLevelExists > -1)
-        {
-           //load next scene assuming build order is correct
-           SceneManager.LoadScene(nextLevel_i);
-        }
-        else
-        {
-           //reached end, load Main Menu
-           SceneManager.LoadScene("Main Menu");
-        }
+        // if (nextLevelExists > -1)
+        // {
+        //    //load next scene assuming build order is correct
+        //    SceneManager.LoadScene(nextLevel_i);
+        // }
+        // else
+        // {
+        //    //reached end, load Main Menu
+        //    SceneManager.LoadScene("Main Menu");
+        // }
 
     }
 
-    // OnCollisionEnter2D is a Unity callback function that is called when a collision occurs with 2D colliders.
-    // In this case, it is used to handle collision events with other objects.
-    // It takes a Collision2D parameter "other" which represents the collision information of the other object involved in the collision.
-    // The function calls the LoadNextLevel() function and passes the "other" parameter to it, which then checks if the collided object
-    // has a tag "End Flag" and loads the next level accordingly.
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "End Flag")

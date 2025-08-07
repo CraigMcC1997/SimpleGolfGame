@@ -19,7 +19,7 @@ public class DragAndShoot : MonoBehaviour
 
     public bool slowedDown = true;
     public bool hasStopped = false;
-    public int shots_left = 2;
+    public static int shots_left = 2;
 
     // Start is a Unity callback function that is called when the script component is enabled and starts running.
     // It initializes various variables used by the script, including the main camera, LineTragetory component,
