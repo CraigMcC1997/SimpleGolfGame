@@ -11,7 +11,6 @@ public class DragAndShoot : MonoBehaviour
 
     Camera cam;
     LineTragetory LineTrag;
-    BallManager ballManager;
     Rigidbody2D Ball_rb;
 
     Vector2 force;
@@ -29,7 +28,6 @@ public class DragAndShoot : MonoBehaviour
     {
         cam = Camera.main;
         LineTrag = GetComponent<LineTragetory>();
-        ballManager = GetComponent<BallManager>();
         Ball_rb = GetComponent<Rigidbody2D>();
     }
 
@@ -39,7 +37,7 @@ public class DragAndShoot : MonoBehaviour
     // It also updates variables related to the ball's velocity and drawing of the line.
     private void Update()
     {
-        if (ballManager.allowControl == true && ballManager.onUIElement == false)
+        if (BallManager.allowControl && !BallManager.onUIElement)
         {
             if (Ball_rb.linearVelocity.x <= 1 && Ball_rb.linearVelocity.y <= 1 && Ball_rb.linearVelocity.y >= 0)
             {
