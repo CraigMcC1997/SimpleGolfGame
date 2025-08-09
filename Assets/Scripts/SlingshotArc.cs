@@ -12,6 +12,8 @@ public class SlingshotArc : MonoBehaviour
     public int dotCount = 15;
     public float timeStep = 0.05f;
     public float maxDistance = 5f;         // Max pullback distance
+    public float minDragThreshold = 0.3f; // minimum drag distance to start drawing
+    bool dragValid = false;
 
     [Header("Throw Settings")]
     public float throwForceMultiplier = 10f;
@@ -47,24 +49,40 @@ public class SlingshotArc : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
+            dragValid = false;
             dragStartPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             dragStartPos.z = 0;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (isDragging)
+            if (isDragging && dragValid)
             {
                 ThrowObject();
             }
 
             isDragging = false;
+            dragValid = false;
             HideDots();
         }
 
         if (isDragging)
         {
-            ShowArc();
+            Vector3 currentMousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            currentMousePos.z = 0;
+
+            float dragDistance = Vector3.Distance(dragStartPos, currentMousePos);
+            Debug.Log($"Drag Distance: {dragDistance}");
+            if (dragDistance > minDragThreshold)
+            {
+                dragValid = true;
+                ShowArc();
+            }
+            else
+            {
+                dragValid = false;
+                HideDots(); // Hide while drag is too small
+            }
         }
     }
 
@@ -99,6 +117,16 @@ public class SlingshotArc : MonoBehaviour
             {
                 dots[i].transform.position = position;
                 dots[i].SetActive(true);
+
+                // dots fade out over distance
+                float alpha = 1f - (i / (float)(dotCount - 1));
+                var sr = dots[i].GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    Color c = sr.color;
+                    c.a = alpha;
+                    sr.color = c;
+                }
             }
             else
             {

@@ -405,6 +405,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1994384732182778519, guid: d82a48bdb89c6724d89187c7f6ed8a8b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7060762912812283509, guid: d82a48bdb89c6724d89187c7f6ed8a8b, type: 3}
+      propertyPath: m_Name
+      value: Slingshot Arc
+      objectReference: {fileID: 0}
+    - target: {fileID: 7363111286273170638, guid: d82a48bdb89c6724d89187c7f6ed8a8b, type: 3}
+      propertyPath: minDragThreshold
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
