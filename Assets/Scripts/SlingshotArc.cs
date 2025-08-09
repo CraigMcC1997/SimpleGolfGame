@@ -1,0 +1,128 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+public class SlingshotArc : MonoBehaviour
+{
+    [Header("Ball Settings")]
+    public GameObject Ball;
+    private Rigidbody2D rb;
+
+    [Header("Arc Settings")]
+    public GameObject dotPrefab;
+    public int dotCount = 15;
+    public float timeStep = 0.05f;
+    public float maxDistance = 5f;         // Max pullback distance
+
+    [Header("Throw Settings")]
+    public float throwForceMultiplier = 10f;
+
+    Camera mainCamera;
+    bool isDragging;
+    Vector3 dragStartPos;
+    List<GameObject> dots = new List<GameObject>();
+
+    float gravity;
+
+    Vector2 launchVelocity;
+
+    void Start()
+    {
+        mainCamera = Camera.main;
+        rb = Ball.GetComponent<Rigidbody2D>();
+
+        // Get gravity value from Unity physics
+        gravity = Physics2D.gravity.y * rb.gravityScale;
+
+        // Create dot pool so we don’t instantiate every frame
+        for (int i = 0; i < dotCount; i++)
+        {
+            GameObject dot = Instantiate(dotPrefab, Ball.transform.position, Quaternion.identity, transform);
+            dot.SetActive(false);
+            dots.Add(dot);
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            isDragging = true;
+            dragStartPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            dragStartPos.z = 0;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (isDragging)
+            {
+                ThrowObject();
+            }
+
+            isDragging = false;
+            HideDots();
+        }
+
+        if (isDragging)
+        {
+            ShowArc();
+        }
+    }
+
+    void calculateLaunchVelocity()
+    {
+        Vector3 currentMousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        currentMousePos.z = 0;
+
+        float dragDistance = Vector3.Distance(dragStartPos, currentMousePos);
+        if (dragDistance < 0.001f) return;
+
+        float clampedDistance = Mathf.Min(dragDistance, maxDistance);
+
+        Vector3 dragVector = currentMousePos - dragStartPos;
+        if (dragVector.sqrMagnitude < 0.000001f) return;
+        Vector3 throwDirection = -dragVector.normalized;
+
+        launchVelocity = throwDirection * clampedDistance * throwForceMultiplier;
+    }
+
+    void ShowArc()
+    {
+        calculateLaunchVelocity();
+
+        for (int i = 0; i < dotCount; i++)
+        {
+            float t = i * timeStep;
+            Vector2 position = (Vector2)Ball.transform.position + launchVelocity * t +
+                               0.5f * new Vector2(0, gravity) * t * t;
+
+            if (IsVectorValid(position))
+            {
+                dots[i].transform.position = position;
+                dots[i].SetActive(true);
+            }
+            else
+            {
+                dots[i].SetActive(false);
+            }
+        }
+    }
+
+    void ThrowObject()
+    {
+        rb.linearVelocity = launchVelocity;
+    }
+
+    void HideDots()
+    {
+        foreach (var dot in dots)
+        {
+            dot.SetActive(false);
+        }
+    }
+
+    bool IsVectorValid(Vector2 v)
+    {
+        return !(float.IsNaN(v.x) || float.IsNaN(v.y) ||
+                 float.IsInfinity(v.x) || float.IsInfinity(v.y));
+    }
+}
