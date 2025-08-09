@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: tilepallet
+  m_Name: ColoursSMALL_4
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 8713120321045492238, guid: 13dea3a4ca9f4c03db4c24b66658e5dd, type: 3}
+  m_Sprite: {fileID: -832136189, guid: e13f93a521ac34486b4e33cef961dc49, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

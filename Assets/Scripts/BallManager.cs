@@ -11,6 +11,8 @@ public class BallManager : MonoBehaviour
     Vector3 startingPos;
     Vector3 originalVelocity;
 
+    public static int shots_left = 2;
+
     const int MAX_TURNS = 2;
     const int NUM_MENUS = 4; // Main Menu and Game Over
     public static bool allowControl = true;
@@ -20,7 +22,7 @@ public class BallManager : MonoBehaviour
 
     void Start()
     {
-        DragAndShoot.shots_left = MAX_TURNS; // Initialize shots left
+        shots_left = MAX_TURNS; // Initialize shots left
         Ball_rb = GetComponent<Rigidbody2D>();
 
         startingPos = gameObject.transform.position;
@@ -66,7 +68,7 @@ public class BallManager : MonoBehaviour
     void Update()
     {
         // stop players control and show death screen
-        if (DragAndShoot.shots_left == 0)
+        if (shots_left == 0)
         {
             allowControl = false;
 

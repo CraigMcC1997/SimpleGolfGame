@@ -22,7 +22,7 @@ public class UI_Manager : MonoBehaviour
     public void UpdateShotsText()
     {
         // Update the shots count text
-        shotsText.text = "Shots Left: " + DragAndShoot.shots_left.ToString();
+        shotsText.text = "Shots Left: " + BallManager.shots_left.ToString();
     }
 
     public void UpdateRoundText()
