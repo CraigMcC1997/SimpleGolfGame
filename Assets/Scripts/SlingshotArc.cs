@@ -20,6 +20,7 @@ public class SlingshotArc : MonoBehaviour
 
     Camera mainCamera;
     bool isDragging;
+    bool allowControl = true;
     Vector3 dragStartPos;
     List<GameObject> dots = new List<GameObject>();
 
@@ -46,7 +47,13 @@ public class SlingshotArc : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        // only allow ball to be launched again after the ball has stopped moving
+        if (Ball.transform.GetComponent<Rigidbody2D>().linearVelocity == Vector2.zero)
+        {
+            allowControl = true;
+        }
+
+        if (Input.GetMouseButtonDown(0) && allowControl)
         {
             isDragging = true;
             dragValid = false;
@@ -58,6 +65,7 @@ public class SlingshotArc : MonoBehaviour
         {
             if (isDragging && dragValid)
             {
+                allowControl = false;
                 ThrowObject();
             }
 
@@ -137,6 +145,7 @@ public class SlingshotArc : MonoBehaviour
 
     void ThrowObject()
     {
+        BallManager.shots_left--;
         rb.linearVelocity = launchVelocity;
     }
 
