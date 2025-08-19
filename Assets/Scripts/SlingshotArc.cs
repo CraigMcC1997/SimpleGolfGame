@@ -80,7 +80,7 @@ public class SlingshotArc : MonoBehaviour
             currentMousePos.z = 0;
 
             float dragDistance = Vector3.Distance(dragStartPos, currentMousePos);
-            Debug.Log($"Drag Distance: {dragDistance}");
+            //Debug.Log($"Drag Distance: {dragDistance}");
             if (dragDistance > minDragThreshold)
             {
                 dragValid = true;

@@ -5,25 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class ButtonUI : MonoBehaviour
 {
-    public string newGameLevel = "Level/1";
-    public string ControlsScene = "Controls";
-    public string SettingsScene = "Settings";
-    public string MainMenuScene = "Main Menu";
+    public LevelLoader levelLoader;
 
     //main menu
     public void StartGameButton()
     {
-        SceneManager.LoadScene(newGameLevel);
+        levelLoader.LoadGame();
     }
 
     public void DisplayControlsButton()
     {
-        SceneManager.LoadScene(ControlsScene);
+        levelLoader.LoadControls();
     }
 
     public void OpenSettingsButton()
     {
-        SceneManager.LoadScene(SettingsScene);
+        levelLoader.LoadSettings();
     }
 
     public void ExitGameButton()
@@ -33,6 +30,6 @@ public class ButtonUI : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene(MainMenuScene);
+        levelLoader.LoadTitleScene();
     }
 }
