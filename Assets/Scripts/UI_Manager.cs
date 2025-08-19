@@ -13,18 +13,6 @@ public class UI_Manager : MonoBehaviour
         UpdateRoundText();
     }
 
-    void Update()
-    {
-        // Continuously update the shots text
-        UpdateShotsText();
-    }
-
-    public void UpdateShotsText()
-    {
-        // Update the shots count text
-        shotsText.text = "Shots Left: " + BallManager.shots_left.ToString();
-    }
-
     public void UpdateRoundText()
     {
         // Update the round text based on the current scene name
