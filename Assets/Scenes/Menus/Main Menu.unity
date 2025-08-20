@@ -1004,13 +1004,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 179647887043793619, guid: cf7c6240280dbe44ca11e52c4ea68d52, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3154469038039045701, guid: cf7c6240280dbe44ca11e52c4ea68d52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 929.0189
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3154469038039045701, guid: cf7c6240280dbe44ca11e52c4ea68d52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 540
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3154469038039045701, guid: cf7c6240280dbe44ca11e52c4ea68d52, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1772,7 +1776,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &1378500588
 MonoBehaviour:
   m_ObjectHideFlags: 0

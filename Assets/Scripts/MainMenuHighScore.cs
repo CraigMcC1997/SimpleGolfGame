@@ -8,8 +8,6 @@ public class MainMenuHighScore : MonoBehaviour
 {
     public TextMeshProUGUI highScore_text;
 
-    // Start is a Unity callback function that is called when the script component is enabled and starts running.
-    // It retrieves the high score from Player Preferences and updates the high score text if it is greater than 0.
     void Start()
     {
         if (Input.GetKeyDown(KeyCode.R))

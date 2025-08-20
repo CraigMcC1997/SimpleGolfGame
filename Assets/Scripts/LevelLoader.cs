@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene("Game Over", 1.0f));
     }
 
+    // this version takes the scene name
     IEnumerator LoadScene(string sceneName, float delay = 0.75f)
     {
         transition.SetTrigger("Start");
@@ -44,6 +46,7 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    // this version takes the scene index
     IEnumerator LoadScene(int sceneIndex, float delay = 0.75f)
     {
         transition.SetTrigger("Start");

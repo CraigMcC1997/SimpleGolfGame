@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public LevelLoader levelLoader;
+    public GameObject ball;
+    BallManager ballManager;
+    float ballSpeed;
 
     const int NUM_MENUS = 4; // Main Menu and Game Over
 
     void Start()
     {
-
+        ballManager = ball.GetComponent<BallManager>();
     }
 
     void updateHighScore(int level)
@@ -21,15 +24,12 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("highScore", level);
 
         PlayerPrefs.Save();
-
-        // Debug.Log("current level: " + level);
-        // Debug.Log("high score: " + PlayerPrefs.GetInt("highScore"));
     }
 
     void Update()
     {
         // if player has ran out of shots then they have failed
-        if (BallManager.shots_left <= 0 && BallManager.stopped && BallManager.allowControl)
+        if (BallManager.shots_left <= 0 && ballManager.getVelocity() <= 0.0f)
         {
             BallManager.allowControl = false;
 

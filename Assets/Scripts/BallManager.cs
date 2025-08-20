@@ -13,22 +13,23 @@ public class BallManager : MonoBehaviour
     Vector3 startingPos;
     Vector3 originalVelocity;
 
+    const int MAX_TURNS = 2;
     public static int shots_left = 2;
 
-    const int MAX_TURNS = 2;
     public static bool allowControl = true;
     public static bool onUIElement = false;
-    public static bool stopped = false;
 
     Rigidbody2D Ball_rb;
 
     void Start()
     {
+        // Reset all static state for new game
         shots_left = MAX_TURNS; // Initialize shots left
+        allowControl = true;
+        onUIElement = false;
+
         Ball_rb = GetComponent<Rigidbody2D>();
-
         gameManagerScript = gameManager.GetComponent<GameManager>();
-
         startingPos = gameObject.transform.position;
         originalVelocity = Ball_rb.linearVelocity;
     }
@@ -44,7 +45,7 @@ public class BallManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void preventPlayerControl()
     {
         if (Time.timeScale == 0)
         {
@@ -52,21 +53,24 @@ public class BallManager : MonoBehaviour
         }
         else
         {
-            allowControl = true;
+            float stopThreshold = 0.05f;
+            float velocity = Ball_rb.linearVelocity.magnitude;
+            // If ball is moving, prevent control
+            if (velocity > stopThreshold)
+            {
+                allowControl = false;
+            }
+            // ball has slowed down to a crawl
+            else
+            {
+                allowControl = true;
+            }
         }
+    }
 
-        if (Ball_rb.linearVelocity.magnitude > 0.0f)
-        {
-            stopped = false;
-        }
-        else
-        {
-            stopped = true;
-        }
-
-       // Debug.Log("Ball stopped: " + stopped);
-
-        // keep ball on screen
+    void Update()
+    {
+        preventPlayerControl();
         KeepBallOnScreen();
     }
 
@@ -76,5 +80,10 @@ public class BallManager : MonoBehaviour
         {
             gameManagerScript.LoadNextLevel();
         }
+    }
+
+    public float getVelocity()
+    {
+        return Ball_rb.linearVelocity.magnitude;
     }
 }

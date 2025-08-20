@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4492953902315041519, guid: cf7c6240280dbe44ca11e52c4ea68d52, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 8708469135979061750, guid: cf7c6240280dbe44ca11e52c4ea68d52, type: 3}
       propertyPath: m_Name
       value: Levelloader
@@ -754,6 +758,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7474104921238729967, guid: f50e0ef03cb5810c3b4880ec08b59e44, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1138032089}
     - target: {fileID: 7474104921238729967, guid: f50e0ef03cb5810c3b4880ec08b59e44, type: 3}
       propertyPath: levelLoader
       value: 
