@@ -20,7 +20,13 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadNextLevel(int nextLevelIndex)
     {
-        StartCoroutine(LoadScene(nextLevelIndex));
+        if (nextLevelIndex < SceneManager.sceneCountInBuildSettings)
+            StartCoroutine(LoadScene(nextLevelIndex));
+        else
+        {
+            Debug.Log("No more levels available.");
+            StartCoroutine(LoadScene("Main Menu"));
+        } 
     }
 
     public void LoadSettings()
@@ -33,9 +39,16 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene("Controls"));
     }
 
+    // if the first level then just restart, else load game over screen
     public void LoadGameOver()
     {
-        StartCoroutine(LoadScene("Game Over", 1.0f));
+        // if level 1 just loop back
+        if (SceneManager.GetActiveScene().name == "1")
+            LoadGame();
+        else
+            StartCoroutine(LoadScene("Game Over", 1.0f));
+
+        
     }
 
     // this version takes the scene name

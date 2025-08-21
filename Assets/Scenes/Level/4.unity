@@ -199,6 +199,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3115670124532123584, guid: fb978bffacefc7d4984e135e3859c39c, type: 3}
+      propertyPath: levelLoader
+      value: 
+      objectReference: {fileID: 34370082}
     - target: {fileID: 3115670124532123610, guid: fb978bffacefc7d4984e135e3859c39c, type: 3}
       propertyPath: m_Name
       value: Pause UI
@@ -289,6 +293,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115670124532123614, guid: fb978bffacefc7d4984e135e3859c39c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115670125882598149, guid: fb978bffacefc7d4984e135e3859c39c, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -762,6 +770,10 @@ PrefabInstance:
       propertyPath: ball
       value: 
       objectReference: {fileID: 1138032089}
+    - target: {fileID: 7474104921238729967, guid: f50e0ef03cb5810c3b4880ec08b59e44, type: 3}
+      propertyPath: ballManager
+      value: 
+      objectReference: {fileID: 1138032088}
     - target: {fileID: 7474104921238729967, guid: f50e0ef03cb5810c3b4880ec08b59e44, type: 3}
       propertyPath: levelLoader
       value: 

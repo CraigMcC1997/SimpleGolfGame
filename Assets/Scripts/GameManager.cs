@@ -4,15 +4,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public LevelLoader levelLoader;
-    public GameObject ball;
-    BallManager ballManager;
+    public BallManager ballManager;
     float ballSpeed;
+
+    GameObject hole;
 
     const int NUM_MENUS = 4; // Main Menu and Game Over
 
     void Start()
     {
-        ballManager = ball.GetComponent<BallManager>();
+        hole = GameObject.Find("Hole in One");
+        hole.SetActive(false);
     }
 
     void updateHighScore(int level)
@@ -33,28 +35,27 @@ public class GameManager : MonoBehaviour
         {
             BallManager.allowControl = false;
 
-            // if level 1 just loop back
-            if (SceneManager.GetActiveScene().name == "1")
-                levelLoader.LoadGame();
-            else
-                levelLoader.LoadGameOver();
+            levelLoader.LoadGameOver();
+        }
+    }
+
+    void checkforHoleInOne()
+    {
+        if (BallManager.shots_left == 1)
+        {
+            hole.SetActive(true);
         }
     }
 
     public void LoadNextLevel()
     {
+        //check for hole in one
+        checkforHoleInOne();
+
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         int nextLevel = currentIndex + 1;
         updateHighScore(nextLevel - NUM_MENUS); // removes menus from highscore
 
-        if (nextLevel < SceneManager.sceneCountInBuildSettings)
-        {
-            levelLoader.LoadNextLevel(nextLevel);
-        }
-        else
-        {
-            Debug.Log("No more levels available.");
-            levelLoader.LoadTitleScene();
-        }
+        levelLoader.LoadNextLevel(nextLevel);
     }
 }
