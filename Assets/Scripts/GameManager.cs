@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public LevelLoader levelLoader;
     public GameObject ball;
     BallManager ballManager;
     float ballSpeed;
@@ -35,9 +34,9 @@ public class GameManager : MonoBehaviour
 
             // if level 1 just loop back
             if (SceneManager.GetActiveScene().name == "1")
-                levelLoader.LoadGame();
+                LevelLoader.Instance.LoadGame();
             else
-                levelLoader.LoadGameOver();
+                LevelLoader.Instance.LoadGameOver();
         }
     }
 
@@ -49,12 +48,12 @@ public class GameManager : MonoBehaviour
 
         if (nextLevel < SceneManager.sceneCountInBuildSettings)
         {
-            levelLoader.LoadNextLevel(nextLevel);
+            LevelLoader.Instance.LoadNextLevel(nextLevel);
         }
         else
         {
             Debug.Log("No more levels available.");
-            levelLoader.LoadTitleScene();
+            LevelLoader.Instance.LoadTitleScene();
         }
     }
 }
