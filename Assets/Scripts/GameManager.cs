@@ -5,6 +5,9 @@ public class GameManager : MonoBehaviour
 {
     public LevelLoader levelLoader;
     public BallManager ballManager;
+
+    public ParticleSystem holeInOneParticles;
+    ParticleSystem holeInOneParticlesInstance;
     float ballSpeed;
 
     GameObject hole;
@@ -44,6 +47,8 @@ public class GameManager : MonoBehaviour
         if (BallManager.shots_left == 1)
         {
             hole.SetActive(true);
+            //TMP disabled until I can progress more with partical systems
+            //holeInOneParticlesInstance = Instantiate(holeInOneParticles, hole.transform.position, Quaternion.identity);
         }
     }
 
