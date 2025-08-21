@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class ButtonUI : MonoBehaviour
 {
-    //main menu
+    public LevelLoader levelLoader;
     public void StartGameButton()
     {
-        LevelLoader.Instance.LoadGame();
+        levelLoader.LoadGame();
     }
 
     public void DisplayControlsButton()
     {
-        LevelLoader.Instance.LoadControls();
+        levelLoader.LoadControls();
     }
 
     public void OpenSettingsButton()
     {
-        LevelLoader.Instance.LoadSettings();
+        levelLoader.LoadSettings();
     }
 
     public void ExitGameButton()
@@ -28,6 +28,6 @@ public class ButtonUI : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        LevelLoader.Instance.LoadTitleScene();
+        levelLoader.LoadTitleScene();
     }
 }
