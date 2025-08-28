@@ -9,8 +9,9 @@ public class SlingshotArc : MonoBehaviour
 
     [Header("Arc Settings")]
     public GameObject dotPrefab;
-    public int dotCount = 15;
-    public float timeStep = 0.05f;
+    public GameObject startingPointMarker;
+    public int dotCount = 20;
+    public float timeStep = 0.005f;
     public float maxDistance = 5f;         // Max pullback distance
     public float minDragThreshold = 0.3f; // minimum drag distance to start drawing
     bool dragValid = false;
@@ -22,6 +23,7 @@ public class SlingshotArc : MonoBehaviour
     bool isDragging;
     Vector3 dragStartPos;
     List<GameObject> dots = new List<GameObject>();
+    GameObject startingPointMarkerInstance;
 
     float gravity;
 
@@ -52,6 +54,9 @@ public class SlingshotArc : MonoBehaviour
             dragValid = false;
             dragStartPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             dragStartPos.z = 0;
+
+            // create the starting marker
+            startingPointMarkerInstance = Instantiate(startingPointMarker, dragStartPos, Quaternion.identity, transform);
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -61,6 +66,9 @@ public class SlingshotArc : MonoBehaviour
                 BallManager.allowControl = false;
                 ThrowObject();
             }
+
+            //kill the marker
+            Destroy(startingPointMarkerInstance);
 
             isDragging = false;
             dragValid = false;
