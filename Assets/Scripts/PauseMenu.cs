@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GamePaused = false;
     public GameObject pauseMenuUI;
 
     // Start is a Unity callback function that is called when the script is first enabled or the object is instantiated.
@@ -24,7 +23,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GamePaused)
+            if (Time.timeScale == 0)
             {
                 Resume();
             }
@@ -42,7 +41,6 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0;
-        GamePaused = true;
     }
 
     // Resume is a public function that is called to resume the game after it has been paused.
@@ -52,7 +50,6 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        GamePaused = false;
     }
 
     // LoadMainMenu is a public function that is called to load the main menu scene.
@@ -60,8 +57,7 @@ public class PauseMenu : MonoBehaviour
     // and loads the "Main Menu" scene using the SceneManager class.
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f;
-        GamePaused = false;
+        Resume();
         SceneManager.LoadScene("Main Menu");
     }
 
