@@ -42,6 +42,7 @@ public class BallManager : MonoBehaviour
         {
             Ball_rb.transform.position = startingPos;
             Ball_rb.linearVelocity = originalVelocity;
+            gameObject.GetComponent<TrailRenderer>().Clear();
         }
     }
 
@@ -55,6 +56,7 @@ public class BallManager : MonoBehaviour
         {
             float stopThreshold = 0.05f;
             float velocity = Ball_rb.linearVelocity.magnitude;
+
             // If ball is moving, prevent control
             if (velocity > stopThreshold)
             {
