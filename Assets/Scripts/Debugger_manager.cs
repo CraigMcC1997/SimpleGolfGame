@@ -3,8 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class Debugger_manager : MonoBehaviour
 {
-    void Start()
+
+    public static Debugger_manager Instance { get; private set; }
+
+    private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        } 
+        
         DontDestroyOnLoad(this.gameObject);
     }
 

@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
     public LevelLoader levelLoader;
     public BallManager ballManager;
 
+    public SecondChance secondChanceMenu;
+
+    public static bool allowSecondChance = true;
+
     public ParticleSystem holeInOneParticles;
     ParticleSystem holeInOneParticlesInstance;
     float ballSpeed;
@@ -38,7 +42,22 @@ public class GameManager : MonoBehaviour
         {
             BallManager.allowControl = false;
 
-            levelLoader.LoadGameOver();
+            if (SceneManager.GetActiveScene().name != "1")
+            {
+                if (allowSecondChance)
+                {
+                    allowSecondChance = false;
+                    secondChanceMenu.LevelLost();
+                }
+                else
+                {
+                    levelLoader.LoadGameOver();
+                }
+            }
+            else
+            {
+                levelLoader.LoadGameOver();
+            }
         }
     }
 
