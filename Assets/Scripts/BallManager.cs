@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms;
 
 public class BallManager : MonoBehaviour
 {
@@ -46,25 +47,18 @@ public class BallManager : MonoBehaviour
 
     void preventPlayerControl()
     {
-        if (Time.timeScale == 0)
+        float stopThreshold = 0.05f;
+        float velocity = Ball_rb.linearVelocity.magnitude;
+
+        // If ball is moving, prevent control
+        if (velocity > stopThreshold)
         {
             allowControl = false;
         }
+        // ball has slowed down to a crawl
         else
         {
-            float stopThreshold = 0.05f;
-            float velocity = Ball_rb.linearVelocity.magnitude;
-
-            // If ball is moving, prevent control
-            if (velocity > stopThreshold)
-            {
-                allowControl = false;
-            }
-            // ball has slowed down to a crawl
-            else
-            {
-                allowControl = true;
-            }
+            allowControl = true;
         }
     }
 

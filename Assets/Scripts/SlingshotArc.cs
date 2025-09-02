@@ -48,10 +48,21 @@ public class SlingshotArc : MonoBehaviour
 
     void Update()
     {
+        // if the game was paused mid shot, invalidate the shot
+        if (Time.timeScale == 0)
+        {
+            isDragging = false;
+            dragValid = false;
+            HideDots();
+            Destroy(startingPointMarkerInstance);
+        }
+
+        // player starts a click & drag
         if (Input.GetMouseButtonDown(0) && BallManager.allowControl)
         {
             isDragging = true;
             dragValid = false;
+
             dragStartPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             dragStartPos.z = 0;
 
@@ -59,29 +70,13 @@ public class SlingshotArc : MonoBehaviour
             startingPointMarkerInstance = Instantiate(startingPointMarker, dragStartPos, Quaternion.identity, transform);
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (isDragging && dragValid)
-            {
-                BallManager.allowControl = false;
-                ThrowObject();
-            }
-
-            //kill the marker
-            Destroy(startingPointMarkerInstance);
-
-            isDragging = false;
-            dragValid = false;
-            HideDots();
-        }
-
+        // ensure the drag is valid before drawing to screen
         if (isDragging)
         {
             Vector3 currentMousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             currentMousePos.z = 0;
 
             float dragDistance = Vector3.Distance(dragStartPos, currentMousePos);
-            //Debug.Log($"Drag Distance: {dragDistance}");
             if (dragDistance > minDragThreshold)
             {
                 dragValid = true;
@@ -92,6 +87,23 @@ public class SlingshotArc : MonoBehaviour
                 dragValid = false;
                 HideDots(); // Hide while drag is too small
             }
+        }
+
+        // player has chosen power and arc and released the ball
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (isDragging && dragValid)
+            {
+                BallManager.allowControl = false;
+                ThrowObject();
+            }
+
+            //remove the marker
+            Destroy(startingPointMarkerInstance);
+
+            isDragging = false;
+            dragValid = false;
+            HideDots();
         }
     }
 

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class UI_Manager : MonoBehaviour
 {
     public TMP_Text roundText;
-    public TMP_Text shotsText;
 
     void Start()
     {

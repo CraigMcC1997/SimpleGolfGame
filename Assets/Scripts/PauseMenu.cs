@@ -32,12 +32,14 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
+        BallManager.allowControl = false;
         Time.timeScale = 0;
     }
 
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        BallManager.allowControl = true;
         Time.timeScale = 1f;
     }
 
