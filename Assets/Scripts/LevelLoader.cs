@@ -53,20 +53,27 @@ public class LevelLoader : MonoBehaviour
         else
             StartCoroutine(LoadScene("Game Over", 1.0f));        
     }
+    
 
     // this version takes the scene name
     IEnumerator LoadScene(string sceneName, float delay = 0.75f)
     {
-        transition.SetTrigger("Start");
-        yield return new WaitForSeconds(delay);
+        if (transition != null)
+        {
+            transition.SetTrigger("Start");
+            yield return new WaitForSeconds(delay);
+        }
         SceneManager.LoadScene(sceneName);
     }
 
     // this version takes the scene index
     IEnumerator LoadScene(int sceneIndex, float delay = 0.75f)
     {
-        transition.SetTrigger("Start");
-        yield return new WaitForSeconds(delay);
+        if (transition != null)
+        {
+            transition.SetTrigger("Start");
+            yield return new WaitForSeconds(delay);
+        }
         SceneManager.LoadScene(sceneIndex);
     }
 }

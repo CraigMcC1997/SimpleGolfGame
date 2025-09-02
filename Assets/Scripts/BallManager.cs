@@ -8,8 +8,7 @@ using TMPro;
 
 public class BallManager : MonoBehaviour
 {
-    public GameObject gameManager;
-    GameManager gameManagerScript;
+    public GameManager gameManager;
     Vector3 startingPos;
     Vector3 originalVelocity;
 
@@ -29,7 +28,6 @@ public class BallManager : MonoBehaviour
         onUIElement = false;
 
         Ball_rb = GetComponent<Rigidbody2D>();
-        gameManagerScript = gameManager.GetComponent<GameManager>();
         startingPos = gameObject.transform.position;
         originalVelocity = Ball_rb.linearVelocity;
     }
@@ -80,7 +78,7 @@ public class BallManager : MonoBehaviour
     {
         if (other.gameObject.tag == "End Flag")
         {
-            gameManagerScript.LoadNextLevel();
+            gameManager.LoadNextLevel();
         }
     }
 

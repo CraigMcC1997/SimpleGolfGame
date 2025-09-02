@@ -21,13 +21,13 @@ public class ButtonUI : MonoBehaviour
         levelLoader.LoadSettings();
     }
 
-    public void ExitGameButton()
-    {
-        Application.Quit();
-    }
-
     public void ReturnToMenu()
     {
         levelLoader.LoadTitleScene();
+    }
+
+    public void ExitGameButton()
+    {
+        Application.Quit();
     }
 }

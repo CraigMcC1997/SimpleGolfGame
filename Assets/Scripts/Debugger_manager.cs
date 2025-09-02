@@ -6,7 +6,7 @@ public class Debugger_manager : MonoBehaviour
 
     public static Debugger_manager Instance { get; private set; }
 
-    private void Awake()
+    void Awake()
     {
         if (Instance != null && Instance != this)
         {

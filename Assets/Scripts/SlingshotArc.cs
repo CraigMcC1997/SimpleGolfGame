@@ -5,7 +5,7 @@ public class SlingshotArc : MonoBehaviour
 {
     [Header("Ball Settings")]
     public GameObject Ball;
-    private Rigidbody2D rb;
+    Rigidbody2D rb;
 
     [Header("Arc Settings")]
     public GameObject dotPrefab;
