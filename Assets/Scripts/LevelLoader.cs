@@ -46,6 +46,7 @@ public class LevelLoader : MonoBehaviour
         else
         {
             Debug.Log("No more levels available.");
+            updateStats.UpdateSuccessfulAttempts(); //TODO: THIS IS TEMP AS FINAL LEVEL NOT DONE, USING LAST AVAILABLE LEVEL AS TESTING, SHOULD BE MORE ROBUST
             StartCoroutine(LoadScene("Main Menu"));
         }
 
