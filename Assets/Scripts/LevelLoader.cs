@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LevelLoader : MonoBehaviour
 {
     public Animator transition;
+    public float transitionTime = 0.75f;
 
     public void LoadTitleScene()
     {
@@ -23,15 +24,22 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
 
-    public void LoadNextLevel(int nextLevelIndex)
+    public void LoadNextLevel(int nextLevelIndex, bool isHoleInOne)
     {
+        // if there is another level, load it else load main menu
         if (nextLevelIndex < SceneManager.sceneCountInBuildSettings)
-            StartCoroutine(LoadScene(nextLevelIndex));
+        {
+            if (isHoleInOne)
+                StartCoroutine(LoadScene(nextLevelIndex, 1.0f)); // TODO: tmp delay for x seconds to show text
+            else
+                StartCoroutine(LoadScene(nextLevelIndex));
+        }
         else
         {
             Debug.Log("No more levels available.");
             StartCoroutine(LoadScene("Main Menu"));
         }
+
     }
 
     public void LoadSettings()
@@ -51,17 +59,21 @@ public class LevelLoader : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "1")
             ReloadLevel();
         else
-            StartCoroutine(LoadScene("Game Over", 1.0f));        
+            StartCoroutine(LoadScene("Game Over", 1.0f));
     }
-    
 
     // this version takes the scene name
     IEnumerator LoadScene(string sceneName, float delay = 0.75f)
     {
+        if (delay != transitionTime)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
         if (transition != null)
         {
             transition.SetTrigger("Start");
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(transitionTime);
         }
         SceneManager.LoadScene(sceneName);
     }
@@ -69,10 +81,15 @@ public class LevelLoader : MonoBehaviour
     // this version takes the scene index
     IEnumerator LoadScene(int sceneIndex, float delay = 0.75f)
     {
+        if (delay != transitionTime)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
         if (transition != null)
         {
             transition.SetTrigger("Start");
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(transitionTime);
         }
         SceneManager.LoadScene(sceneIndex);
     }

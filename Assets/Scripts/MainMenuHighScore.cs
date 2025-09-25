@@ -10,11 +10,16 @@ public class MainMenuHighScore : MonoBehaviour
 
     void Start()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            PlayerPrefs.SetInt("highScore", 0);
-
         int highscore = PlayerPrefs.GetInt("highScore");
         if (highscore > 0)
             highScore_text.text = "High Score: " + highscore;
+        else
+            highScore_text.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            PlayerPrefs.SetInt("highScore", 0);
     }
 }
