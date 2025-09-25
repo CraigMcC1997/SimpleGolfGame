@@ -13,7 +13,7 @@ public class BallManager : MonoBehaviour
     Vector3 startingPos;
     Vector3 originalVelocity;
 
-    const int MAX_TURNS = 2;
+    public const int MAX_SHOTS = 2;
     public static int shots_left = 2;
 
     public static bool allowControl = true;
@@ -24,7 +24,7 @@ public class BallManager : MonoBehaviour
     void Start()
     {
         // Reset all static state for new game
-        shots_left = MAX_TURNS; // Initialize shots left
+        shots_left = MAX_SHOTS; // Initialize shots left
         allowControl = true;
         onUIElement = false;
 

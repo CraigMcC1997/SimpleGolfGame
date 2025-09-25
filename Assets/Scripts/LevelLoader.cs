@@ -9,6 +9,15 @@ public class LevelLoader : MonoBehaviour
     public Animator transition;
     public float transitionTime = 0.75f;
 
+    UpdateStats updateStats;
+    bool loadGameOverBool = true;
+
+    void Start()
+    {
+        loadGameOverBool = true;
+        updateStats = gameObject.GetComponent<UpdateStats>();
+    }
+
     public void LoadTitleScene()
     {
         StartCoroutine(LoadScene("Main Menu"));
@@ -60,6 +69,13 @@ public class LevelLoader : MonoBehaviour
     // if the first level then just restart, else load game over screen
     public void LoadGameOver()
     {
+        if (loadGameOverBool)
+        {
+            loadGameOverBool = false;
+            updateStats.UpdateFailedAttempts();
+            updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
+        }
+
         // if level 1 just loop back
         if (SceneManager.GetActiveScene().name == "1")
             ReloadLevel();
