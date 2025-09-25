@@ -60,26 +60,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void checkforHoleInOne()
+    bool checkforHoleInOne()
     {
         if (BallManager.shots_left == 1)
         {
             holeinOneText.SetActive(true);
-
-            //!!TODO!! TMP disabled until I can progress more with partical systems
-            //holeInOneParticlesInstance = Instantiate(holeInOneParticles, holeinOneText.transform.position, Quaternion.identity);
+            return true;
         }
+        return false;
+        //!!TODO!! TMP disabled until I can progress more with partical systems
+        //holeInOneParticlesInstance = Instantiate(holeInOneParticles, holeinOneText.transform.position, Quaternion.identity);
     }
 
     public void LoadNextLevel()
     {
         //check for hole in one
-        checkforHoleInOne();
+        bool isHoleInOne = checkforHoleInOne();
 
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         int nextLevel = currentIndex + 1;
         updateHighScore(nextLevel - NUM_MENUS); // removes menus from highscore
 
-        levelLoader.LoadNextLevel(nextLevel);
+        levelLoader.LoadNextLevel(nextLevel, isHoleInOne);
     }
 }
