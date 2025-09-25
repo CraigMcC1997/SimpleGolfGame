@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class ResetStatics : MonoBehaviour
 {
-    /* reset all statics when loading in the menu to configure the game state back to default*/
-    void Start()
+    public void ResetAllStatics()
     {
-        /* allow the player to use a 2nd chance when they fail a level */
-        GameManager.allowSecondChance = true;
+        PlayerPrefs.SetInt("TotalShots", 0);
+        PlayerPrefs.SetInt("TotalLevelsCleared", 0);
+        PlayerPrefs.SetInt("TotalFailedAttempts", 0);
+        PlayerPrefs.SetInt("SuccessfulAttempts", 0);
     }
-    
 }
