@@ -21,6 +21,11 @@ public class ButtonUI : MonoBehaviour
         levelLoader.LoadSettings();
     }
 
+    public void DisplayStatsButton()
+    {
+        levelLoader.LoadStats();
+    }
+
     public void ReturnToMenu()
     {
         levelLoader.LoadTitleScene();

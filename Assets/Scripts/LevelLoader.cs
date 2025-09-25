@@ -52,6 +52,11 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene("Controls"));
     }
 
+    public void LoadStats()
+    {
+        StartCoroutine(LoadScene("Stats"));
+    }
+
     // if the first level then just restart, else load game over screen
     public void LoadGameOver()
     {
