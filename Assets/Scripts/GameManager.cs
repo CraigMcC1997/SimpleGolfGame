@@ -16,22 +16,14 @@ public class GameManager : MonoBehaviour
 
     public GameObject holeinOneText;
 
+    UpdateStats updateStats;
+
     const int NUM_MENUS = 4; // Main Menu and Game Over
 
     void Start()
     {
         holeinOneText.SetActive(false);
-    }
-
-    void updateHighScore(int level)
-    {
-        if (PlayerPrefs.HasKey("highScore"))
-            if (level > PlayerPrefs.GetInt("highScore"))
-                PlayerPrefs.SetInt("highScore", level);
-        else
-            PlayerPrefs.SetInt("highScore", level);
-
-        PlayerPrefs.Save();
+        updateStats = levelLoader.gameObject.GetComponent<UpdateStats>();
     }
 
     void Update()
@@ -79,7 +71,9 @@ public class GameManager : MonoBehaviour
 
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         int nextLevel = currentIndex + 1;
-        updateHighScore(nextLevel - NUM_MENUS); // removes menus from highscore
+        updateStats.UpdateHighScore(nextLevel - NUM_MENUS); // removes menus from highscore
+        updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
+        updateStats.UpdateLevelsCleared();
 
         levelLoader.LoadNextLevel(nextLevel, isHoleInOne);
     }

@@ -48,3 +48,4 @@ MonoBehaviour:
   ballManager: {fileID: 0}
   secondChanceMenu: {fileID: 0}
   holeInOneParticles: {fileID: 0}
+  holeinOneText: {fileID: 0}
