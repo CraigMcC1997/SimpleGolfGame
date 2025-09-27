@@ -16,21 +16,24 @@ public class GameManager : MonoBehaviour
 
     public GameObject holeinOneText;
 
-    UpdateStats updateStats;
-
-    const int NUM_MENUS = 4; // Main Menu and Game Over
+    bool GameOver = false;
 
     void Start()
     {
         holeinOneText.SetActive(false);
-        updateStats = levelLoader.gameObject.GetComponent<UpdateStats>();
     }
 
     void Update()
     {
+        CheckForGameOver();
+    }
+
+    void CheckForGameOver()
+    {
         // if player has ran out of shots then they have failed
-        if (BallManager.shots_left <= 0 && ballManager.getVelocity() <= 0.0f)
+        if (BallManager.shots_left <= 0 && ballManager.getVelocity() <= 0.0f && !GameOver)
         {
+            GameOver = true;
             BallManager.allowControl = false;
 
             // if on first level, just reload it to allow for faster retry
@@ -46,7 +49,9 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    levelLoader.LoadGameOver();
+                    //if this round failed then count previous as highest round cleared
+                    int MaxRoundCleared = int.Parse(SceneManager.GetActiveScene().name) - 1;
+                    levelLoader.LoadGameOver(MaxRoundCleared);
                 }
             }
         }
@@ -54,7 +59,9 @@ public class GameManager : MonoBehaviour
 
     bool checkforHoleInOne()
     {
-        if (BallManager.shots_left == 1)
+        // allow for hole in one if its the first shot
+        // allows for extras shots in future implementation
+        if ((BallManager.MAX_SHOTS - 1) == BallManager.shots_left)
         {
             holeinOneText.SetActive(true);
             return true;
@@ -69,11 +76,8 @@ public class GameManager : MonoBehaviour
         //check for hole in one
         bool isHoleInOne = checkforHoleInOne();
 
-        int currentIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextLevel = currentIndex + 1;
-        updateStats.UpdateHighScore(nextLevel - NUM_MENUS); // removes menus from highscore
-        updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
-        updateStats.UpdateLevelsCleared();
+        // get next level index from current level name
+        int nextLevel = int.Parse(SceneManager.GetActiveScene().name) + 1;
 
         levelLoader.LoadNextLevel(nextLevel, isHoleInOne);
     }

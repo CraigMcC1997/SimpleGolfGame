@@ -20,10 +20,14 @@ public class UpdateStats : MonoBehaviour
         PlayerPrefs.SetInt("TotalShots", totalShots);
     }
 
-    public void UpdateLevelsCleared()
+    public void UpdateLevelsCleared(int levelsClearedThisSession)
     {
+        // if did not clear any levels this session, do nothing
+        if (levelsClearedThisSession <= 0)
+            return;
+
         int totalLevelsCleared = PlayerPrefs.GetInt("TotalLevelsCleared", 0);
-        totalLevelsCleared += 1;
+        totalLevelsCleared += levelsClearedThisSession;
         PlayerPrefs.SetInt("TotalLevelsCleared", totalLevelsCleared);
     }
 

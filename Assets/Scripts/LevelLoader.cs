@@ -10,16 +10,24 @@ public class LevelLoader : MonoBehaviour
     public float transitionTime = 0.75f;
 
     UpdateStats updateStats;
-    bool loadGameOverBool = true;
+
+    const int NUM_LEVELS = 5;
 
     void Start()
     {
-        loadGameOverBool = true;
         updateStats = gameObject.GetComponent<UpdateStats>();
     }
 
-    public void LoadTitleScene()
+    public void LoadTitleScene(bool fromLevel = false)
     {
+        if (fromLevel)
+        {
+            updateStats.UpdateHighScore(0);
+            updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
+            updateStats.UpdateLevelsCleared(int.Parse(SceneManager.GetActiveScene().name) - 1);
+            updateStats.UpdateFailedAttempts();
+        }
+
         StartCoroutine(LoadScene("Main Menu"));
     }
 
@@ -31,25 +39,28 @@ public class LevelLoader : MonoBehaviour
 
     public void ReloadLevel(bool secondChance = false)
     {
-        if (loadGameOverBool && !secondChance)
-        {
-            loadGameOverBool = false;
+        if (!secondChance)
             updateStats.UpdateFailedAttempts();
-            updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
-        }
+
+        updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
 
         StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
 
-    public void LoadNextLevel(int nextLevelIndex, bool isHoleInOne)
+    public void LoadNextLevel(int nextLevel, bool isHoleInOne = false)
     {
+        updateStats.UpdateHighScore(nextLevel);
+        updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
+
         // if there is another level, load it else load main menu
-        if (nextLevelIndex < SceneManager.sceneCountInBuildSettings)
+        if (nextLevel < NUM_LEVELS)
         {
+            string nextLevelName = nextLevel.ToString();
+
             if (isHoleInOne)
-                StartCoroutine(LoadScene(nextLevelIndex, 1.0f)); // TODO: tmp delay for x seconds to show text
+                StartCoroutine(LoadScene(nextLevelName, 1.0f)); // TODO: tmp delay for x seconds to show text
             else
-                StartCoroutine(LoadScene(nextLevelIndex));
+                StartCoroutine(LoadScene(nextLevelName));
         }
         else
         {
@@ -76,14 +87,11 @@ public class LevelLoader : MonoBehaviour
     }
 
     // if the first level then just restart, else load game over screen
-    public void LoadGameOver()
+    public void LoadGameOver(int MaxRoundReached)
     {
-        if (loadGameOverBool)
-        {
-            loadGameOverBool = false;
-            updateStats.UpdateFailedAttempts();
-            updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
-        }
+        updateStats.UpdateFailedAttempts();
+        updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
+        updateStats.UpdateLevelsCleared(MaxRoundReached);
 
         StartCoroutine(LoadScene("Game Over", 1.0f));
     }

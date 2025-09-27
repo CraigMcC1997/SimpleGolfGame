@@ -23,7 +23,7 @@ public class SecondChance : MonoBehaviour
     {
         secondChanceMenu.SetActive(false);
         Time.timeScale = 1f;
-        levelLoader.LoadTitleScene();
+        levelLoader.LoadTitleScene(true);
     }
 
     // if player loses, give option to retry once per game

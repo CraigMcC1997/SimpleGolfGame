@@ -28,7 +28,7 @@ public class ButtonUI : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        levelLoader.LoadTitleScene();
+        levelLoader.LoadTitleScene(false);
     }
 
     public void ExitGameButton()
