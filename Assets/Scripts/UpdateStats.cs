@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class UpdateStats : MonoBehaviour
 {
-    public void UpdateHighScore(int levelCompleted)
+    public void UpdateHighScore(int levelCompleted = 1)
     {
         int highScore = PlayerPrefs.GetInt("highScore", 0);
         if (levelCompleted > highScore)
