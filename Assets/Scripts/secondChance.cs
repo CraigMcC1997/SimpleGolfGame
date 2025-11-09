@@ -13,7 +13,7 @@ public class SecondChance : MonoBehaviour
     }
 
     // level over, show menu to give player a second chance
-    public void LevelLost()
+    public void DisplaySecondChanceMenu()
     {
         secondChanceMenu.SetActive(true);
         Time.timeScale = 0;
@@ -31,6 +31,6 @@ public class SecondChance : MonoBehaviour
     {
         secondChanceMenu.SetActive(false);
         Time.timeScale = 1f;
-        levelLoader.ReloadLevel();
+        levelLoader.ReloadLevel(true);
     }
 }

@@ -25,11 +25,19 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadGame()
     {
+        updateStats.UpdateHighScore();
         StartCoroutine(LoadScene("Scenes/Level/1"));
     }
 
-    public void ReloadLevel()
+    public void ReloadLevel(bool secondChance = false)
     {
+        if (loadGameOverBool && !secondChance)
+        {
+            loadGameOverBool = false;
+            updateStats.UpdateFailedAttempts();
+            updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
+        }
+
         StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
 
@@ -77,11 +85,7 @@ public class LevelLoader : MonoBehaviour
             updateStats.UpdateShotsTaken(BallManager.MAX_SHOTS - BallManager.shots_left);
         }
 
-        // if level 1 just loop back
-        if (SceneManager.GetActiveScene().name == "1")
-            ReloadLevel();
-        else
-            StartCoroutine(LoadScene("Game Over", 1.0f));
+        StartCoroutine(LoadScene("Game Over", 1.0f));
     }
 
     // this version takes the scene name

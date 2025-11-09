@@ -33,21 +33,21 @@ public class GameManager : MonoBehaviour
         {
             BallManager.allowControl = false;
 
-            if (SceneManager.GetActiveScene().name != "1")
+            // if on first level, just reload it to allow for faster retry
+            if (SceneManager.GetActiveScene().name == "1")
+                levelLoader.ReloadLevel(false);
+            else
             {
+                // for levels after the first, give option for second chance (only once per game)
                 if (allowSecondChance)
                 {
                     allowSecondChance = false;
-                    secondChanceMenu.LevelLost();
+                    secondChanceMenu.DisplaySecondChanceMenu();
                 }
                 else
                 {
                     levelLoader.LoadGameOver();
                 }
-            }
-            else
-            {
-                levelLoader.LoadGameOver();
             }
         }
     }
