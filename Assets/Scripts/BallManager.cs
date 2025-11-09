@@ -51,7 +51,7 @@ public class BallManager : MonoBehaviour
         float velocity = Ball_rb.linearVelocity.magnitude;
 
         // If ball is moving, prevent control
-        if (velocity > stopThreshold)
+        if (velocity > stopThreshold || shots_left <= 0)
         {
             allowControl = false;
         }
