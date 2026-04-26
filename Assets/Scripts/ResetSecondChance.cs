@@ -8,7 +8,4 @@ public class ResetSecondChance : MonoBehaviour
         /* allow the player to use a 2nd chance when they fail a level */
         GameManager.allowSecondChance = true;
     }
-
-
-
 }
