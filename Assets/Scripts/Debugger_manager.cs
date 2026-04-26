@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Debugger_manager : MonoBehaviour
 {
@@ -23,9 +24,9 @@ public class Debugger_manager : MonoBehaviour
     void Update()
     {
         // load the level corresponding to the number key pressed (1 = level 1, etc)
-        if (Input.anyKeyDown)
+        if (Keyboard.current.anyKey.wasPressedThisFrame)
         {
-            int buildIndex = SceneUtility.GetBuildIndexByScenePath("Scenes/Level/" + Input.inputString);
+            int buildIndex = SceneUtility.GetBuildIndexByScenePath("Scenes/Level/" + Keyboard.current.anyKey.ReadValue());
             if (buildIndex != -1)
             {
                 SceneManager.LoadScene(buildIndex);
@@ -33,15 +34,15 @@ public class Debugger_manager : MonoBehaviour
         }
 
         // Reload current level
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         // Move ball to mouses position when M is pressed
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Keyboard.current.mKey.wasPressedThisFrame)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             mousePos.z = 0f; // Ensure z-coordinate is zero for 2D
             GameObject ball = GameObject.FindGameObjectWithTag("Player");
             if (ball != null)

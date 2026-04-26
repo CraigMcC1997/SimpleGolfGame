@@ -50,5 +50,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level/10.unity
     guid: d2450c8667a5f1f4faa36eed90a16b1f
-  m_configObjects: {}
-  m_UseUCBPForAssetBundles: 0
+  m_configObjects:
+    com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}

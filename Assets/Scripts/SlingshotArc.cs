@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class SlingshotArc : MonoBehaviour
 {
@@ -58,12 +59,12 @@ public class SlingshotArc : MonoBehaviour
         }
 
         // player starts a click & drag
-        if (Input.GetMouseButtonDown(0) && BallManager.allowControl)
+        if (Mouse.current.leftButton.wasPressedThisFrame && BallManager.allowControl)
         {
             isDragging = true;
             dragValid = false;
 
-            dragStartPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            dragStartPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             dragStartPos.z = 0;
 
             // create the starting marker
@@ -73,7 +74,7 @@ public class SlingshotArc : MonoBehaviour
         // ensure the drag is valid before drawing to screen
         if (isDragging)
         {
-            Vector3 currentMousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 currentMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             currentMousePos.z = 0;
 
             float dragDistance = Vector3.Distance(dragStartPos, currentMousePos);
@@ -90,7 +91,7 @@ public class SlingshotArc : MonoBehaviour
         }
 
         // player has chosen power and arc and released the ball
-        if (Input.GetMouseButtonUp(0))
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             if (isDragging && dragValid)
             {
@@ -109,7 +110,7 @@ public class SlingshotArc : MonoBehaviour
 
     void calculateLaunchVelocity()
     {
-        Vector3 currentMousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 currentMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         currentMousePos.z = 0;
 
         float dragDistance = Vector3.Distance(dragStartPos, currentMousePos);

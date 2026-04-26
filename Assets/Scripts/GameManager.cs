@@ -28,8 +28,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (BallManager.shots_left <= 0)
+            checkforRoundFailure();
+    }
+    
+    void checkforRoundFailure()
+    {
         // if player has ran out of shots then they have failed
-        if (BallManager.shots_left <= 0 && ballManager.getVelocity() <= 0.0f)
+        if (ballManager.getVelocity() <= 0.0f)
         {
             BallManager.allowControl = false;
 
