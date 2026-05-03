@@ -23,21 +23,31 @@ public class Debugger_manager : MonoBehaviour
 
     void Update()
     {
-        // load the level corresponding to the number key pressed (1 = level 1, etc)
-        if (Keyboard.current.anyKey.wasPressedThisFrame)
+        // Move between levels with + and - keys, using any key to determine which level to load
+        if (Keyboard.current.periodKey.wasPressedThisFrame)
         {
-            int buildIndex = SceneUtility.GetBuildIndexByScenePath("Scenes/Level/" + Keyboard.current.anyKey.ReadValue());
-            if (buildIndex != -1)
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
             {
-                SceneManager.LoadScene(buildIndex);
+                SceneManager.LoadScene(nextSceneIndex);
             }
         }
+        else if (Keyboard.current.commaKey.wasPressedThisFrame)
+        {
+            int previousSceneIndex = SceneManager.GetActiveScene().buildIndex - 1;
+            if (previousSceneIndex >= 0)
+            {
+                SceneManager.LoadScene(previousSceneIndex);
+            }
+        }
+        
 
         // Reload current level
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        
 
         // Move ball to mouses position when M is pressed
         if (Keyboard.current.mKey.wasPressedThisFrame)
