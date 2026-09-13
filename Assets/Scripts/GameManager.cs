@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public LevelLoader levelLoader;
     public BallManager ballManager;
+
+    public Coin_Manager coinManager;
 
     public SecondChance secondChanceMenu;
 

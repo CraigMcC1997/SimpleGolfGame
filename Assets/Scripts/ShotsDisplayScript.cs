@@ -17,6 +17,7 @@ public class ShotsDisplayScript : MonoBehaviour
         }
     }
 
+    // UPDATE THIS!!!! Should only call once when shots_left changes, not every frame!!!!!
     void Update()
     {
         // Grey out balls based on shots_left
