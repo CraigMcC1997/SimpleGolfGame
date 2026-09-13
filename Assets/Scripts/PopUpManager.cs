@@ -21,6 +21,7 @@ public class PopUpManager : MonoBehaviour
         if (completed == 1)
         {
             Debug.Log("Tutorial already completed.");
+            popUp.SetActive(false);
             return;
         }
 
