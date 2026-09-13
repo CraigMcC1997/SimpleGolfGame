@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     public LevelLoader levelLoader;
+    public GameObject tutorialPopUp;
 
     void Start()
     {

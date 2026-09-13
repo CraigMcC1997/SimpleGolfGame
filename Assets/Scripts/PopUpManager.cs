@@ -17,14 +17,13 @@ public class PopUpManager : MonoBehaviour
         popUp.SetActive(true);
         //audioSource = GetComponent<AudioSource>();
 
-        BallManager.allowControl = false;
         SetTutorialText(shieldButtonClicked);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        BallManager.allowControl = false;
     }
 
     void SetTutorialText(int step)

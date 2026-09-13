@@ -10,6 +10,7 @@ using UnityEngine.SocialPlatforms;
 public class BallManager : MonoBehaviour
 {
     public GameManager gameManager;
+    public GameObject tutorialPopUp;
     Vector3 startingPos;
     Vector3 originalVelocity;
 
@@ -49,6 +50,12 @@ public class BallManager : MonoBehaviour
     {
         float stopThreshold = 0.05f;
         float velocity = Ball_rb.linearVelocity.magnitude;
+
+        if (tutorialPopUp.activeSelf)
+        {
+            allowControl = false;
+            return;
+        }
 
         // If ball is moving, prevent control
         if (velocity > stopThreshold || shots_left <= 0)
