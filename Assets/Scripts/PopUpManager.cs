@@ -14,9 +14,17 @@ public class PopUpManager : MonoBehaviour
 
     void Start()
     {
-        popUp.SetActive(true);
+        //.SetInt("TutorialCompleted", 0);
         //audioSource = GetComponent<AudioSource>();
 
+        int completed = PlayerPrefs.GetInt("TutorialCompleted");
+        if (completed == 1)
+        {
+            Debug.Log("Tutorial already completed.");
+            return;
+        }
+
+        popUp.SetActive(true);
         SetTutorialText(shieldButtonClicked);
     }
 
@@ -69,6 +77,11 @@ public class PopUpManager : MonoBehaviour
             return;
         }
         SetTutorialText(shieldButtonClicked);
+    }
+
+    public void SkipTutorial()
+    {
+        ClosePopUp();
     }
 
     public void ClosePopUp()
